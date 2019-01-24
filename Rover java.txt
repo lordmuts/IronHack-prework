@@ -1,0 +1,145 @@
+Rover
+
+var map = [
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', 'x', 'x', ' ', ' ', ' ', ' '],
+  [' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+]; // the map - were x is the self placed opstacel
+
+var theRover = {
+  direction: 'N',
+  x: 0,
+  y: 0,
+  travelLog: [0, 0]
+}
+
+function moveForward(rover){
+  var xBefore = rover.x;
+  var yBefore = rover.y;
+    switch(rover.direction) {
+      case 'N':
+        rover.y--;
+        break;
+      case 'S':
+        rover.y++;
+        break;
+      case 'E':
+        rover.x++;
+        break;
+      case 'W':
+        rover.x--;
+        break;
+    }
+  var xAfter = rover.x;
+  var yAfter = rover.y;
+  testOutOfGrid(xBefore, yBefore, xAfter, yAfter, rover);
+  if (rover === theRover) {
+    console.log("seeMeeRolling");
+    obstacles(xBefore, yBefore, xAfter, yAfter, rover);
+    rover.travelLog += '; ' + [rover.x, rover.y];
+    console.log("The Rover is going to " + rover.x + " . " + rover.y);
+  }
+}
+
+function turnRight(rover) {
+  switch (rover.direction) {
+   case 'N':
+      rover.direction = 'E';
+      break;
+   
+    case 'W':
+      rover.direction = 'N';
+      break;
+   
+    case 'E':
+      rover.direction = 'S';
+      break;
+
+    case 'S':
+      rover.direction ='W';
+      break;
+   
+    }
+  if (rover === theRover) {  
+    console.log("It is turnd right and faces to " + rover.direction);
+    console.log("I dont see what happens left!!")
+  }
+}
+
+function turnLeft(rover){
+  switch (rover.direction) {
+   
+    case 'N':
+      rover.direction = 'W';
+      break;
+
+    case 'W':
+      rover.direction = 'S';
+      break;
+
+    case 'E':
+      rover.direction = 'N';
+      break;
+  
+    case 'S':
+      rover.direction ='E';
+      break;
+    }
+  if(rover === theRover) {
+    console.log('It is turnd left and faces to ' + rover.direction);
+  }
+}
+
+function moveBackward(rover){
+  var xBefore = rover.x;
+  var yBefore = rover.y;
+    switch(rover.direction) {
+      case 'N':
+        rover.y++;
+        break;
+      case 'S':
+        rover.y--;
+        break;
+      case 'E':
+        rover.x--;
+        break;
+      case 'W':
+        rover.x++;
+        break;
+    }
+  var xAfter = rover.x;
+  var yAfter = rover.y;
+  offTheGrid(xBefore, yBefore, xAfter, yAfter, rover);
+  if (rover === theRover) {
+    console.log("PIEP PIEP");
+    obstacles(xBefore, yBefore, xAfter, yAfter, rover);
+    rover.travelLog += '; ' + [rover.x, rover.y];
+    console.log("The Rover is going to " + rover.x + ", " + rover.y);
+  }
+  console.log("Why go back?");
+}
+function obstacles (xBefore, yBefore, xAfter, yAfter, rover) {
+  if (xAfter < 9 && yAfter < 9 && xAfter > 0 && yAfter > 0 ) {
+    if (grids[xAfter][yAfter] === 'x') {
+        rover.x = xBefore;
+        rover.y = yBefore;
+        console.log('ERROR(look out!)');
+    }
+  }
+}
+function offTheGrid (xBefore, yBefore, xAfter, yAfter, rover) {
+  if ((xAfter < 0 || yAfter < 0 || xAfter > 9 || yAfter > 9) && (rover === theRover)) {
+    console.log('The Grid is not round, like mars... so look out please!');
+  }
+  if (xAfter < 0 || yAfter < 0 || xAfter > 9 || yAfter > 9) {
+    rover.x = xBefore;
+    rover.y = yBefore;
+  }
+}

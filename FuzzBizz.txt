@@ -1,0 +1,25 @@
+for (var counter = 1; counter <= 50; counter++){
+  
+  if (counter === 49) {
+    console.log(counter);
+    console.log("Donkey!")
+    break; //it's something...
+  }
+  
+  else if (counter % 7 === 0) { // devide by 7 -- skip
+   console.log(counter);
+   counter++;
+   continue; // go's true
+  } 
+  else if (counter % 15 === 0) {
+   console.log("Donkey!");
+  } 
+  else if (counter % 10 === 0) {
+    console.log("Donkey!")
+    counter++;
+    console.log("Monkey!")
+  } 
+  else {
+   console.log(counter);
+  }
+ }

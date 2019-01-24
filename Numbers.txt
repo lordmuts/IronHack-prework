@@ -1,0 +1,20 @@
+var currentLargest = 0;
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+for (var i = 0; i < numbers.length; i++) {
+  if (numbers[i] >= currentLargest ) {
+     currentLargest = numbers[i];
+  } 
+}	console.log("biggest number = " + currentLargest);
+
+var sum = 0;
+for(var i = 0; i < numbers.length; i++) {
+  sum = sum + numbers[i];
+} console.log("Total of numbers = " + sum);
+
+for(var i = 0; i < numbers.length; i++) {
+  sum += numbers[i];
+}
+
+var average = sum / numbers.length;
+console.log("The average = " + average);
